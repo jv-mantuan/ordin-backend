@@ -5,7 +5,6 @@ API de controle financeiro construída com .NET 10, EF Core e PostgreSQL.
 ![.NET](https://img.shields.io/badge/.NET-10.0-512BD4)
 ![Status](https://img.shields.io/badge/status-em%20desenvolvimento-orange)
 ![Build](https://img.shields.io/badge/build-local-lightgrey)
-![License](https://img.shields.io/badge/license-MIT-blue)
 
 ## Stack
 
