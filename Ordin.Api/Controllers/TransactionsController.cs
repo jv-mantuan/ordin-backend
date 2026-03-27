@@ -1,11 +1,11 @@
 using Ordin.Api.Contracts;
-using Ordin.Application.Commands.CreateTransaction;
-using Ordin.Application.Commands.DeleteTransaction;
-using Ordin.Application.Commands.UpdateTransaction;
+using Ordin.Application.Commands.Transactions.CreateTransaction;
+using Ordin.Application.Commands.Transactions.DeleteTransaction;
+using Ordin.Application.Commands.Transactions.UpdateTransaction;
 using Ordin.Application.DTOs;
 using Ordin.Application.Interfaces;
-using Ordin.Application.Queries.GetAllTransactions;
-using Ordin.Application.Queries.GetTransactionById;
+using Ordin.Application.Queries.Transactions.GetAllTransactions;
+using Ordin.Application.Queries.Transactions.GetTransactionById;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ordin.Api.Controllers;

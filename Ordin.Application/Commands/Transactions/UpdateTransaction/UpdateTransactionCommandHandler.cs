@@ -2,7 +2,7 @@ using ErrorOr;
 using Ordin.Application.DTOs;
 using Ordin.Application.Interfaces;
 
-namespace Ordin.Application.Commands.UpdateTransaction;
+namespace Ordin.Application.Commands.Transactions.UpdateTransaction;
 
 public class UpdateTransactionCommandHandler : ICommandHandler<UpdateTransactionCommand, TransactionDto>
 {

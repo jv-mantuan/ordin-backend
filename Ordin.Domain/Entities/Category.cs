@@ -5,11 +5,16 @@ namespace Ordin.Domain.Entities;
 /// </summary>
 public class Category : BaseEntity
 {
+    public static Category Create(string name, Guid userId) => new(name, userId);
+
     protected Category(string name, Guid userId, Guid id = default) : base(id)
     {
         Name = name;
         UserId = userId;
     }
+
+    // Parameterless constructor required by EF
+    private Category() { }
 
     public string Name { get; private set; }
 
@@ -20,6 +25,11 @@ public class Category : BaseEntity
 
     private readonly List<Transaction> _transactions = [];
     public IReadOnlyCollection<Transaction> Transactions => _transactions.AsReadOnly();
+
+    public void Update(string name)
+    {
+        Name = name;
+    }
 
     public void Delete()
     {

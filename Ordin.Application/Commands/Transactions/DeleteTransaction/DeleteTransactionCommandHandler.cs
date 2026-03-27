@@ -1,7 +1,7 @@
 using ErrorOr;
 using Ordin.Application.Interfaces;
 
-namespace Ordin.Application.Commands.DeleteTransaction
+namespace Ordin.Application.Commands.Transactions.DeleteTransaction
 {
     public class DeleteTransactionCommandHandler : ICommandHandler<DeleteTransactionCommand, Deleted>
     {

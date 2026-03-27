@@ -2,7 +2,7 @@ using ErrorOr;
 using Ordin.Application.DTOs;
 using Ordin.Application.Interfaces;
 
-namespace Ordin.Application.Queries.GetTransactionById
+namespace Ordin.Application.Queries.Transactions.GetTransactionById
 {
     internal class GetTransactionByIdQueryHandler : IQueryHandler<GetTransactionByIdQuery, TransactionWithCategoryNameDto>
     {

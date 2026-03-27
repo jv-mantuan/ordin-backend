@@ -3,7 +3,7 @@ using Ordin.Application.DTOs;
 using Ordin.Application.Interfaces;
 using Ordin.Domain.Entities;
 
-namespace Ordin.Application.Commands.CreateTransaction
+namespace Ordin.Application.Commands.Transactions.CreateTransaction
 {
     public class CreateTransactionCommandHandler : ICommandHandler<CreateTransactionCommand, TransactionDto>
     {
