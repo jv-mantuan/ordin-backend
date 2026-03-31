@@ -90,7 +90,7 @@ public class TransactionsController(IDispatcher dispatcher) : BaseController(dis
             return Problem(result.Errors);
         }
 
-        return CreatedAtAction(nameof(GetById), new { }, result);
+        return CreatedAtAction(nameof(GetById), new { id = result.Value.Id }, result.Value);
     }
 
     /// <summary>

@@ -26,7 +26,8 @@ namespace Ordin.Application.Queries.Transactions.GetAllTransactions
                 Type = t.Type,
                 Date = t.Date,
                 CategoryId = t.CategoryId,
-                CategoryName = t.Category != null ? t.Category.Name : string.Empty
+                CategoryName = t.Category != null ? t.Category.Name : string.Empty,
+                CreatedAt = t.CreatedAt
             }).ToList();
 
             return dto;
