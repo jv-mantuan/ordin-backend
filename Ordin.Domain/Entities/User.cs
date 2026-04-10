@@ -24,8 +24,15 @@ public class User : BaseEntity
     private readonly List<Transaction> _transactions = [];
     public IReadOnlyCollection<Transaction> Transactions => _transactions.AsReadOnly();
 
+    /// <summary>
+    /// Marks the user as deleted and also marks all associated categories and transactions as deleted.<br/>
+    /// Be sure that the categories and transactions should be loaded by EF before calling this method, otherwise the transactions won't be marked as deleted.
+    /// </summary>
     public void Delete()
     {
         IsDeleted = true;
+
+        foreach (var category in _categories)
+            category.Delete();
     }
 }

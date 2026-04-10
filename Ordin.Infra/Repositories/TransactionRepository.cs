@@ -26,7 +26,7 @@ namespace Ordin.Infra.Repositories
         /// <returns>A read-only list of transactions that belong to the specified user, each including its associated category.</returns>
         public async Task<IReadOnlyList<Transaction>> GetTransactionsWithCategoriesByUserIdAsync(Guid userId, CancellationToken cancellationToken = default)
         {
-            return await _dbSet.Include(t => t.Category).Where(t => t.UserId == userId).ToListAsync(cancellationToken);
+            return await _dbSet.Include(t => t.Category).Where(t => t.UserId == userId && ! t.IsDeleted).ToListAsync(cancellationToken);
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Ordin.Infra.Repositories
         public new async Task<Transaction?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             var transaction = await _dbSet.Include(t => t.Category)
-                .FirstOrDefaultAsync(t => t.Id == id, cancellationToken);
+                .FirstOrDefaultAsync(t => t.Id == id && !t.IsDeleted, cancellationToken);
 
             return transaction;
         }

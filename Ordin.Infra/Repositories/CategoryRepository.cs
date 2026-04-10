@@ -15,6 +15,16 @@ namespace Ordin.Infra.Repositories
         }
 
         /// <summary>
+        /// Retrieves a category by its unique identifier, including its associated transactions.
+        /// </summary>
+        public async Task<Category?> GetByIdWithTransactionsAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            return await _dbSet
+                .Include(c => c.Transactions)
+                .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
+        }
+
+        /// <summary>
         /// Returns all non-deleted categories belonging to the given user.
         /// </summary>
         public async Task<IReadOnlyList<Category>> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken = default)

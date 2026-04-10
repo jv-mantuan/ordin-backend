@@ -16,7 +16,7 @@ namespace Ordin.Application.Commands.Transactions.DeleteTransaction
         {
             var transaction = await _transactionRepository.GetByIdAsync(command.TransactionId, ct);
 
-            if (transaction == null)
+            if (transaction == null || transaction.IsDeleted)
             {
                 return Error.NotFound("Transaction.NotFound", "The transaction was not found.");
             }

@@ -31,8 +31,15 @@ public class Category : BaseEntity
         Name = name;
     }
 
+    /// <summary>
+    /// Marks the category as deleted and also marks all associated transactions as deleted.<br/>
+    /// Be sure that the transactions should be loaded by EF before calling this method, otherwise the transactions won't be marked as deleted.
+    /// </summary>
     public void Delete()
     {
         IsDeleted = true;
+
+        foreach (var transaction in _transactions)
+            transaction.Delete();
     }
 }

@@ -19,7 +19,7 @@ namespace Ordin.Application.Commands.Categories.UpdateCategory
         {
             var category = await _categoryRepository.GetByIdAsync(command.Id, ct);
 
-            if (category is null)
+            if (category is null || category.IsDeleted)
                 return Error.NotFound("Category.NotFound", "The category was not found.");
 
             if (category.UserId != _currentUserService.UserId)

@@ -19,7 +19,7 @@ public class UpdateTransactionCommandHandler : ICommandHandler<UpdateTransaction
     {
         var transaction = await _transactionRepository.GetByIdAsync(command.Id, ct);
 
-        if (transaction == null)
+        if (transaction == null || transaction.IsDeleted)
             return Error.NotFound("Transaction.NotFound", "The transaction was not found.");
         
         transaction.Update(command.Name, command.Amount, command.Type, command.Date, command.CategoryId);

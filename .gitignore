@@ -26,8 +26,10 @@ bld/
 # Rider
 .idea/
 
-# VS Code
-.vscode/
+# VS Code (keep launch.json and tasks.json tracked)
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
 .vs/
 
 # .NET Core
