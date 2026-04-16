@@ -1,9 +1,12 @@
 using ErrorOr;
+using Ordin.Application.Attributes;
 using Ordin.Application.DTOs;
+using Ordin.Application.Enums;
 using Ordin.Application.Interfaces;
 
 namespace Ordin.Application.Queries.Transactions.GetTransactionById
 {
+    [CacheableQuery(CacheKey = CacheKeys.Transactions, DurationInSeconds = 86400)]
     internal class GetTransactionByIdQueryHandler : IQueryHandler<GetTransactionByIdQuery, TransactionWithCategoryNameDto>
     {
         private readonly ITransactionRepository _transactionRepository;

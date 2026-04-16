@@ -1,5 +1,6 @@
 using Ordin.Application.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
+using Ordin.Application.Decorators;
 
 namespace Ordin.Application.DependencyInjection
 {

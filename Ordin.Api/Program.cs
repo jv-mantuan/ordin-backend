@@ -8,6 +8,7 @@ using Ordin.Infra.Contexts;
 using Ordin.Infra.DependencyInjection;
 using System.Reflection;
 using System.Text.Json;
+using Ordin.Application.Decorators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,9 +23,11 @@ builder.Services.AddDbContext<OrdinContext>(options =>
 
 builder.Services.AddScoped<IDispatcher, Dispatcher>();
 builder.Services.AddScoped<ICurrentUserService, UserService>();
+builder.Services.AddMemoryCache();
 
 builder.Services.AddApplicationHandlers();
 builder.Services.AddInfrastructureServices();
+builder.Services.Decorate(typeof(IQueryHandler<,>), typeof(CacheableQueryHandlerDecorator<,>));
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
@@ -46,7 +49,7 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddCors(options => 
     options.AddPolicy(AllowAnyLocalhostPolicy, 
-    policy => policy.SetIsOriginAllowed(origin => new Uri(origin).IsLoopback)
+    policy => policy.SetIsOriginAllowed(origin => Uri.TryCreate(origin, UriKind.Absolute, out var uri) && uri.IsLoopback)
         .AllowAnyHeader()
         .AllowAnyMethod()));
 

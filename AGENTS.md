@@ -68,6 +68,10 @@ Four-layer **Clean Architecture** with **CQRS** and **DDD-inspired** domain mode
 
 **Serialization**: API responses use `camelCase` (JSON); database columns use `snake_case` (EF naming convention).
 
+## Git Conventions
+
+- Do not add `Co-Authored-By` lines in commit messages.
+
 ## Database
 
 Default connection string (fallback in `Program.cs`): `Host=localhost;Database=ordin;Username=postgres;Password=3011`. Override via `appsettings.Development.json` or environment variable.

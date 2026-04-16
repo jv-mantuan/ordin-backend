@@ -1,9 +1,12 @@
 using ErrorOr;
+using Ordin.Application.Attributes;
 using Ordin.Application.DTOs;
+using Ordin.Application.Enums;
 using Ordin.Application.Interfaces;
 
 namespace Ordin.Application.Queries.Transactions.GetAllTransactions
 {
+    [CacheableQuery(CacheKey = CacheKeys.Transactions, DurationInSeconds = 86400)]
     public class GetAllTransactionsQueryHandler : IQueryHandler<GetAllTransactionsQuery, IReadOnlyList<TransactionWithCategoryNameDto>>
     {
         private readonly ICurrentUserService _currentUserService;
@@ -17,7 +20,7 @@ namespace Ordin.Application.Queries.Transactions.GetAllTransactions
 
         public async Task<ErrorOr<IReadOnlyList<TransactionWithCategoryNameDto>>> HandleAsync(GetAllTransactionsQuery query, CancellationToken ct)
         {
-            var transactions = await _transactionRepository.GetTransactionsWithCategoriesByUserIdAsync(_currentUserService.UserId, ct);
+            var transactions = await _transactionRepository.GetTransactionsWithCategoriesAsNoTrackingAsync(_currentUserService.UserId, ct);
 
             var dto = transactions.Select(t => new TransactionWithCategoryNameDto
             {
@@ -26,7 +29,7 @@ namespace Ordin.Application.Queries.Transactions.GetAllTransactions
                 Type = t.Type,
                 Date = t.Date,
                 CategoryId = t.CategoryId,
-                CategoryName = t.Category != null ? t.Category.Name : string.Empty,
+                CategoryName = t.Category.Name,
                 CreatedAt = t.CreatedAt
             }).ToList();
 

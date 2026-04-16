@@ -1,10 +1,14 @@
 using ErrorOr;
+using Ordin.Application.Attributes;
 using Ordin.Application.DTOs;
+using Ordin.Application.Enums;
+using Ordin.Application.Handlers;
 using Ordin.Application.Interfaces;
 
 namespace Ordin.Application.Queries.Categories.GetCategoryById
 {
-    public class GetCategoryByIdQueryHandler : IQueryHandler<GetCategoryByIdQuery, CategoryDto>
+    [CacheableQuery(CacheKey = CacheKeys.Categories, DurationInSeconds = 86400)]
+    public class GetCategoryByIdQueryHandler : QueryHandler<GetCategoryByIdQuery, CategoryDto>
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly ICurrentUserService _currentUserService;
@@ -15,7 +19,7 @@ namespace Ordin.Application.Queries.Categories.GetCategoryById
             _currentUserService = currentUserService;
         }
 
-        public async Task<ErrorOr<CategoryDto>> HandleAsync(GetCategoryByIdQuery query, CancellationToken ct)
+        public override async Task<ErrorOr<CategoryDto>> HandleAsync(GetCategoryByIdQuery query, CancellationToken ct)
         {
             var category = await _categoryRepository.GetByIdAsync(query.Id, ct);
 

@@ -24,9 +24,27 @@ namespace Ordin.Infra.Repositories
         /// <param name="userId">The unique identifier of the user whose transactions are to be retrieved.</param>
         /// <param name="cancellationToken">A cancellation token that can be used to cancel the asynchronous operation.</param>
         /// <returns>A read-only list of transactions that belong to the specified user, each including its associated category.</returns>
-        public async Task<IReadOnlyList<Transaction>> GetTransactionsWithCategoriesByUserIdAsync(Guid userId, CancellationToken cancellationToken = default)
+        public async Task<IReadOnlyList<Transaction>> GetTransactionsWithCategoriesByUserIdAsync(Guid userId,
+            CancellationToken cancellationToken = default)
         {
-            return await _dbSet.Include(t => t.Category).Where(t => t.UserId == userId && ! t.IsDeleted).ToListAsync(cancellationToken);
+            return await _dbSet.Include(t => t.Category).Where(t => t.UserId == userId && !t.IsDeleted)
+                .ToListAsync(cancellationToken);
+        }
+
+        /// <summary>
+        /// Asynchronously retrieves all transactions for the specified user, including their associated categories.
+        /// </summary>
+        /// <remarks>The returned list includes each transaction's related category data. If the user has
+        /// no transactions, the list will be empty.</remarks>
+        /// <param name="userId">The unique identifier of the user whose transactions are to be retrieved.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used to cancel the asynchronous operation.</param>
+        /// <returns>A read-only list of transactions that belong to the specified user, each including its associated category.</returns>
+        public async Task<IReadOnlyList<Transaction>> GetTransactionsWithCategoriesAsNoTrackingAsync(Guid userId,
+            CancellationToken cancellationToken = default)
+        {
+            return await _dbSet.Include(t => t.Category).Where(t => t.UserId == userId && !t.IsDeleted)
+                .AsNoTracking()
+                .ToListAsync(cancellationToken);
         }
 
         /// <summary>
