@@ -1,9 +1,10 @@
 using ErrorOr;
+using Ordin.Application.Handlers;
 using Ordin.Application.Interfaces;
 
 namespace Ordin.Application.Commands.Categories.DeleteCategory
 {
-    public class DeleteCategoryCommandHandler : ICommandHandler<DeleteCategoryCommand, Deleted>
+    public class DeleteCategoryCommandHandler : CommandHandlerBase<DeleteCategoryCommand, Deleted>
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly ICurrentUserService _currentUserService;
@@ -14,7 +15,7 @@ namespace Ordin.Application.Commands.Categories.DeleteCategory
             _currentUserService = currentUserService;
         }
 
-        public async Task<ErrorOr<Deleted>> HandleAsync(DeleteCategoryCommand command, CancellationToken ct)
+        public override async Task<ErrorOr<Deleted>> HandleAsync(DeleteCategoryCommand command, CancellationToken ct)
         {
             var category = await _categoryRepository.GetByIdWithTransactionsAsync(command.Id, ct);
 

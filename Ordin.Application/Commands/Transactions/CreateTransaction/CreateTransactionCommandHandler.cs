@@ -1,11 +1,15 @@
 using ErrorOr;
+using Ordin.Application.Attributes;
 using Ordin.Application.DTOs;
+using Ordin.Application.Enums;
+using Ordin.Application.Handlers;
 using Ordin.Application.Interfaces;
 using Ordin.Domain.Entities;
 
 namespace Ordin.Application.Commands.Transactions.CreateTransaction
 {
-    public class CreateTransactionCommandHandler : ICommandHandler<CreateTransactionCommand, TransactionDto>
+    [InvalidateCache(CacheKeys.Transactions)]
+    public class CreateTransactionCommandHandler : CommandHandlerBase<CreateTransactionCommand, TransactionDto>
     {
         private readonly ITransactionRepository _transactionRepository;
         private readonly ICurrentUserService _currentUserService;
@@ -16,7 +20,7 @@ namespace Ordin.Application.Commands.Transactions.CreateTransaction
             _currentUserService = currentUserService;
         }
 
-        public async Task<ErrorOr<TransactionDto>> HandleAsync(CreateTransactionCommand command, CancellationToken ct)
+        public override async Task<ErrorOr<TransactionDto>> HandleAsync(CreateTransactionCommand command, CancellationToken ct)
         {
             var transaction = new Transaction(command.Name, command.Amount, command.Type, command.Date, command.CategoryId, _currentUserService.UserId);
 

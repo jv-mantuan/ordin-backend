@@ -1,10 +1,11 @@
 using ErrorOr;
 using Ordin.Application.DTOs;
+using Ordin.Application.Handlers;
 using Ordin.Application.Interfaces;
 
 namespace Ordin.Application.Commands.Transactions.UpdateTransaction;
 
-public class UpdateTransactionCommandHandler : ICommandHandler<UpdateTransactionCommand, TransactionDto>
+public class UpdateTransactionCommandHandler : CommandHandlerBase<UpdateTransactionCommand, TransactionDto>
 {
     private readonly ITransactionRepository _transactionRepository;
     private readonly ICurrentUserService _currentUserService;
@@ -15,7 +16,7 @@ public class UpdateTransactionCommandHandler : ICommandHandler<UpdateTransaction
         _currentUserService = currentUserService;
     }
     
-    public async Task<ErrorOr<TransactionDto>> HandleAsync(UpdateTransactionCommand command, CancellationToken ct)
+    public override async Task<ErrorOr<TransactionDto>> HandleAsync(UpdateTransactionCommand command, CancellationToken ct)
     {
         var transaction = await _transactionRepository.GetByIdAsync(command.Id, ct);
 

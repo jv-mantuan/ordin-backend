@@ -6,6 +6,7 @@ namespace Ordin.Application.Interfaces
     {
         new Task AddAsync(Transaction entity, CancellationToken cancellationToken = default);
         new Task<Transaction?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
-        Task<IReadOnlyList<Transaction>> GetTransactionsWithCategoriesByUserIdAsync(Guid userId, CancellationToken cancellationToken = default);
+        public Task<IReadOnlyList<Transaction>> GetTransactionsWithCategoriesByUserIdAsync(Guid userId, CancellationToken cancellationToken = default);
+        public Task<IReadOnlyList<Transaction>> GetTransactionsWithCategoriesAsNoTrackingAsync(Guid userId, CancellationToken cancellationToken = default);
     }
 }

@@ -1,21 +1,22 @@
 using ErrorOr;
 using Ordin.Application.DTOs;
+using Ordin.Application.Handlers;
 using Ordin.Application.Interfaces;
 
 namespace Ordin.Application.Queries.Categories.GetCategoryById
 {
-    public class GetCategoryByIdQueryHandler : IQueryHandler<GetCategoryByIdQuery, CategoryDto>
+    public class GetCategoryByIdQueryHandlerBase : QueryHandlerBase<GetCategoryByIdQuery, CategoryDto>
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly ICurrentUserService _currentUserService;
 
-        public GetCategoryByIdQueryHandler(ICategoryRepository categoryRepository, ICurrentUserService currentUserService)
+        public GetCategoryByIdQueryHandlerBase(ICategoryRepository categoryRepository, ICurrentUserService currentUserService)
         {
             _categoryRepository = categoryRepository;
             _currentUserService = currentUserService;
         }
 
-        public async Task<ErrorOr<CategoryDto>> HandleAsync(GetCategoryByIdQuery query, CancellationToken ct)
+        public override async Task<ErrorOr<CategoryDto>> HandleAsync(GetCategoryByIdQuery query, CancellationToken ct)
         {
             var category = await _categoryRepository.GetByIdAsync(query.Id, ct);
 

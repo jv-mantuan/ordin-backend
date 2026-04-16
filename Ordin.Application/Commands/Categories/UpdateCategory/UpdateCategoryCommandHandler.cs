@@ -1,10 +1,11 @@
 using ErrorOr;
 using Ordin.Application.DTOs;
+using Ordin.Application.Handlers;
 using Ordin.Application.Interfaces;
 
 namespace Ordin.Application.Commands.Categories.UpdateCategory
 {
-    public class UpdateCategoryCommandHandler : ICommandHandler<UpdateCategoryCommand, CategoryDto>
+    public class UpdateCategoryCommandHandler : CommandHandlerBase<UpdateCategoryCommand, CategoryDto>
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly ICurrentUserService _currentUserService;
@@ -15,7 +16,7 @@ namespace Ordin.Application.Commands.Categories.UpdateCategory
             _currentUserService = currentUserService;
         }
 
-        public async Task<ErrorOr<CategoryDto>> HandleAsync(UpdateCategoryCommand command, CancellationToken ct)
+        public override async Task<ErrorOr<CategoryDto>> HandleAsync(UpdateCategoryCommand command, CancellationToken ct)
         {
             var category = await _categoryRepository.GetByIdAsync(command.Id, ct);
 

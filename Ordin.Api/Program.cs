@@ -8,6 +8,7 @@ using Ordin.Infra.Contexts;
 using Ordin.Infra.DependencyInjection;
 using System.Reflection;
 using System.Text.Json;
+using Ordin.Application.Decorators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,9 +23,11 @@ builder.Services.AddDbContext<OrdinContext>(options =>
 
 builder.Services.AddScoped<IDispatcher, Dispatcher>();
 builder.Services.AddScoped<ICurrentUserService, UserService>();
+builder.Services.AddMemoryCache();
 
 builder.Services.AddApplicationHandlers();
 builder.Services.AddInfrastructureServices();
+builder.Services.Decorate(typeof(IQueryHandler<,>), typeof(CacheableQueryHandlerDecorator<,>));
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>

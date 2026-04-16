@@ -1,9 +1,10 @@
 using ErrorOr;
+using Ordin.Application.Handlers;
 using Ordin.Application.Interfaces;
 
 namespace Ordin.Application.Commands.Transactions.DeleteTransaction
 {
-    public class DeleteTransactionCommandHandler : ICommandHandler<DeleteTransactionCommand, Deleted>
+    public class DeleteTransactionCommandHandler : CommandHandlerBase<DeleteTransactionCommand, Deleted>
     {
         private readonly ITransactionRepository _transactionRepository;
 
@@ -12,7 +13,7 @@ namespace Ordin.Application.Commands.Transactions.DeleteTransaction
             _transactionRepository = transactionRepository;
         }
 
-        public async Task<ErrorOr<Deleted>> HandleAsync(DeleteTransactionCommand command, CancellationToken ct)
+        public override async Task<ErrorOr<Deleted>> HandleAsync(DeleteTransactionCommand command, CancellationToken ct)
         {
             var transaction = await _transactionRepository.GetByIdAsync(command.TransactionId, ct);
 
