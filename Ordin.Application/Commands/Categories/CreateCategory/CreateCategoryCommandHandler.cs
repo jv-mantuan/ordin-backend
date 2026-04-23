@@ -20,7 +20,7 @@ namespace Ordin.Application.Commands.Categories.CreateCategory
         {
             var category = Category.Create(command.Name, _currentUserService.UserId);
 
-            await _categoryRepository.AddAsync(category, ct);
+            await _categoryRepository.Add(category, ct);
 
             return new CategoryDto
             {

@@ -18,7 +18,7 @@ public class UpdateTransactionCommandHandler : CommandHandler<UpdateTransactionC
     
     public override async Task<ErrorOr<TransactionDto>> HandleAsync(UpdateTransactionCommand command, CancellationToken ct)
     {
-        var transaction = await _transactionRepository.GetByIdAsync(command.Id, ct);
+        var transaction = await _transactionRepository.GetById(command.Id, ct);
 
         if (transaction == null || transaction.IsDeleted)
             return Error.NotFound("Transaction.NotFound", "The transaction was not found.");

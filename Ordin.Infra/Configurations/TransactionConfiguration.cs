@@ -37,8 +37,7 @@ public class TransactionConfiguration : IEntityTypeConfiguration<Transaction>
             .HasDefaultValue(false)
             .IsRequired();
 
-        builder.HasIndex(t => t.UserId);
-        builder.HasIndex(transaction => transaction.CategoryId);
+        builder.HasIndex(t => new { t.CategoryId, t.IsDeleted, t.Date });
         builder.HasIndex(t => new { t.UserId, t.IsDeleted, t.Date });
     }
 }

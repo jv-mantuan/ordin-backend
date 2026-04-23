@@ -15,7 +15,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
         _dbSet = context.Set<T>();
     }
 
-    public async Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<T?> GetById(Guid id, CancellationToken cancellationToken = default)
     {
         return await _dbSet.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
@@ -25,7 +25,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
         return _dbSet;
     }
 
-    public async Task AddAsync(T entity, CancellationToken cancellationToken = default)
+    public async Task Add(T entity, CancellationToken cancellationToken = default)
     {
         await _dbSet.AddAsync(entity, cancellationToken);
     }

@@ -24,7 +24,7 @@ namespace Ordin.Application.Commands.Transactions.CreateTransaction
         {
             var transaction = new Transaction(command.Name, command.Amount, command.Type, command.Date, command.CategoryId, _currentUserService.UserId);
 
-            await _transactionRepository.AddAsync(transaction, ct);
+            await _transactionRepository.Add(transaction, ct);
 
             return new TransactionDto
             {

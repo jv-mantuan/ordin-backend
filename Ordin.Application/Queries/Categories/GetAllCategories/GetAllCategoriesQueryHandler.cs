@@ -22,7 +22,7 @@ namespace Ordin.Application.Queries.Categories.GetAllCategories
 
         public override async Task<ErrorOr<IReadOnlyList<CategoryDto>>> HandleAsync(GetAllCategoriesQuery query, CancellationToken ct)
         {
-            var categories = await _categoryRepository.GetByUserIdAsync(_currentUserService.UserId, ct);
+            var categories = await _categoryRepository.GetByUserId(_currentUserService.UserId, ct);
 
             var dto = categories.Select(c => new CategoryDto
             {

@@ -18,7 +18,7 @@ namespace Ordin.Application.Commands.Categories.UpdateCategory
 
         public override async Task<ErrorOr<CategoryDto>> HandleAsync(UpdateCategoryCommand command, CancellationToken ct)
         {
-            var category = await _categoryRepository.GetByIdAsync(command.Id, ct);
+            var category = await _categoryRepository.GetById(command.Id, ct);
 
             if (category is null || category.IsDeleted)
                 return Error.NotFound("Category.NotFound", "The category was not found.");

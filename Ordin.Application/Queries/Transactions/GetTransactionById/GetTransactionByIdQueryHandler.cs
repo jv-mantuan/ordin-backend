@@ -18,7 +18,7 @@ namespace Ordin.Application.Queries.Transactions.GetTransactionById
 
         public async Task<ErrorOr<TransactionWithCategoryNameDto>> HandleAsync(GetTransactionByIdQuery query, CancellationToken ct)
         {
-            var transaction = await _transactionRepository.GetByIdAsync(query.Id, ct);
+            var transaction = await _transactionRepository.GetById(query.Id, ct);
 
             if(transaction == null)
             {

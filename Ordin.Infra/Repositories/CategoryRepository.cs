@@ -17,7 +17,7 @@ namespace Ordin.Infra.Repositories
         /// <summary>
         /// Retrieves a category by its unique identifier, including its associated transactions.
         /// </summary>
-        public async Task<Category?> GetByIdWithTransactionsAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task<Category?> GetByIdWithTransactions(Guid id, CancellationToken cancellationToken = default)
         {
             return await _dbSet
                 .Include(c => c.Transactions)
@@ -27,10 +27,23 @@ namespace Ordin.Infra.Repositories
         /// <summary>
         /// Returns all non-deleted categories belonging to the given user.
         /// </summary>
-        public async Task<IReadOnlyList<Category>> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken = default)
+        public async Task<IReadOnlyList<Category>> GetByUserId(Guid userId, CancellationToken cancellationToken = default)
         {
             return await _dbSet
                 .Where(c => c.UserId == userId && !c.IsDeleted)
+                .ToListAsync(cancellationToken);
+        }
+
+        /// <summary>
+        /// Asynchronously retrieves all categories for the specified user.
+        /// </summary>
+        /// <param name="userId">The unique identifier of the user whose categories are to be retrieved.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used to cancel the asynchronous operation.</param>
+        public async Task<IReadOnlyList<Category>> GetByUserIdAsNoTracking(Guid userId, CancellationToken cancellationToken = default)
+        {
+            return await _dbSet
+                .Where(c => c.UserId == userId && !c.IsDeleted)
+                .AsNoTracking()
                 .ToListAsync(cancellationToken);
         }
     }

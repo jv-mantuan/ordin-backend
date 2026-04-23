@@ -21,7 +21,7 @@ namespace Ordin.Application.Queries.Categories.GetCategoryById
 
         public override async Task<ErrorOr<CategoryDto>> HandleAsync(GetCategoryByIdQuery query, CancellationToken ct)
         {
-            var category = await _categoryRepository.GetByIdAsync(query.Id, ct);
+            var category = await _categoryRepository.GetById(query.Id, ct);
 
             if (category is null)
                 return Error.NotFound("Category.NotFound", "The category was not found.");

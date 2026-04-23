@@ -17,7 +17,7 @@ namespace Ordin.Application.Commands.Categories.DeleteCategory
 
         public override async Task<ErrorOr<Deleted>> HandleAsync(DeleteCategoryCommand command, CancellationToken ct)
         {
-            var category = await _categoryRepository.GetByIdWithTransactionsAsync(command.Id, ct);
+            var category = await _categoryRepository.GetByIdWithTransactions(command.Id, ct);
 
             if (category is null || category.IsDeleted)
                 return Error.NotFound("Category.NotFound", "The category was not found.");

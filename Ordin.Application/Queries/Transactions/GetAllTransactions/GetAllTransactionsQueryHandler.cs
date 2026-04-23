@@ -20,7 +20,7 @@ namespace Ordin.Application.Queries.Transactions.GetAllTransactions
 
         public async Task<ErrorOr<IReadOnlyList<TransactionWithCategoryNameDto>>> HandleAsync(GetAllTransactionsQuery query, CancellationToken ct)
         {
-            var transactions = await _transactionRepository.GetTransactionsWithCategoriesAsNoTrackingAsync(_currentUserService.UserId, ct);
+            var transactions = await _transactionRepository.GetTransactionsWithCategoriesAsNoTracking(_currentUserService.UserId, ct);
 
             var dto = transactions.Select(t => new TransactionWithCategoryNameDto
             {

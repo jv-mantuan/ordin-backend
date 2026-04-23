@@ -22,6 +22,6 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
             .HasDefaultValue(false)
             .IsRequired();
 
-        builder.HasIndex(category => new { category.Name, category.UserId });
+        builder.HasIndex(category => new { category.UserId, category.IsDeleted, category.Name });
     }
 }

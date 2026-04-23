@@ -15,7 +15,7 @@ namespace Ordin.Application.Commands.Transactions.DeleteTransaction
 
         public override async Task<ErrorOr<Deleted>> HandleAsync(DeleteTransactionCommand command, CancellationToken ct)
         {
-            var transaction = await _transactionRepository.GetByIdAsync(command.TransactionId, ct);
+            var transaction = await _transactionRepository.GetById(command.TransactionId, ct);
 
             if (transaction == null || transaction.IsDeleted)
             {
